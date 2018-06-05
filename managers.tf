@@ -12,8 +12,9 @@ resource "scaleway_server" "swarm_manager" {
   public_ip      = "${element(scaleway_ip.swarm_manager_ip.*.ip, count.index)}"
 
   connection {
-    type = "ssh"
-    user = "root"
+    type        = "ssh"
+    user        = "root"
+    private_key = "${file("~/.ssh/id_rsa")}"
   }
 
   provisioner "remote-exec" {
