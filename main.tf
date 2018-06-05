@@ -6,8 +6,9 @@ provider "scaleway" {
 // https://github.com/moby/moby/issues/28168
 data "scaleway_bootscript" "rancher" {
   architecture = "x86_64"
+
   //name_filter  = "docker"
-  name = "x86_64 mainline 4.9.48 rev1"
+  name = "x86_64 mainline 4.9.93 rev1"
 }
 
 data "scaleway_image" "xenial" {
