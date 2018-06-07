@@ -47,3 +47,23 @@ resource "scaleway_security_group_rule" "ssh_accept_workers" {
   protocol  = "TCP"
   port      = 22
 }
+
+resource "scaleway_security_group_rule" "docker_api_accept" {
+  security_group = "${scaleway_security_group.swarm_managers.id}"
+
+  action    = "accept"
+  direction = "inbound"
+  ip_range  = "212.159.77.98/32"
+  protocol  = "TCP"
+  port      = 2375
+}
+
+resource "scaleway_security_group_rule" "docker_metrics_accept" {
+  security_group = "${scaleway_security_group.swarm_managers.id}"
+
+  action    = "accept"
+  direction = "inbound"
+  ip_range  = "212.159.77.98/32"
+  protocol  = "TCP"
+  port      = 9323
+}
