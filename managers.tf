@@ -1,7 +1,8 @@
+/*
 resource "scaleway_ip" "swarm_manager_ip" {
   count = 1
-
 }
+*/
 
 resource "scaleway_server" "swarm_manager" {
   count          = 1
@@ -10,7 +11,7 @@ resource "scaleway_server" "swarm_manager" {
   type           = "${var.manager_instance_type}"
   bootscript     = "${data.scaleway_bootscript.rancher.id}"
   security_group = "${scaleway_security_group.swarm_managers.id}"
-  public_ip      = "${element(scaleway_ip.swarm_manager_ip.*.ip, count.index)}"
+  public_ip      = "${var.docker_manager_static_ip}"
 
   connection {
     type        = "ssh"

@@ -69,7 +69,7 @@ resource "scaleway_server" "swarm_worker" {
     connection {
       type = "ssh"
       user = "root"
-      host = "${scaleway_ip.swarm_manager_ip.0.ip}"
+      host = "${scaleway_server.swarm_manager.0.public_ip}"
     }
   }
 
@@ -97,7 +97,7 @@ resource "scaleway_server" "swarm_worker" {
     connection {
       type = "ssh"
       user = "root"
-      host = "${scaleway_ip.swarm_manager_ip.0.ip}"
+      host = "${scaleway_server.swarm_manager.0.public_ip}"
     }
   }
 }
@@ -106,7 +106,7 @@ data "external" "swarm_tokens" {
   program = ["./scripts/fetch-tokens.sh"]
 
   query = {
-    host = "${scaleway_ip.swarm_manager_ip.0.ip}"
+    host = "${scaleway_server.swarm_manager.0.public_ip}"
   }
 
   depends_on = ["scaleway_server.swarm_manager"]

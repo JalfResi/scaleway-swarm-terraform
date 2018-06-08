@@ -1,5 +1,5 @@
 output "swarm_manager_public_ip" {
-  value = "${scaleway_ip.swarm_manager_ip.0.ip}"
+  value = "${scaleway_server.swarm_manager.0.public_ip}"
 }
 
 output "swarm_manager_private_ip" {

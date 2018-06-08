@@ -1,4 +1,5 @@
 SHELL:=/bin/bash
+HOST:=swarm.ourscienceistight.com
 
 init:
 	@brew update
@@ -16,10 +17,10 @@ generate:
 	@echo "Create a server key and certificate signing request (CSR)"
 	@echo "Make sure that “Common Name” matches the hostname you use to connect to Docker:"
 	openssl genrsa -out server-key.pem 4096
-	openssl req -subj "/CN=$HOST" -sha256 -new -key server-key.pem -out server.csr
+	openssl req -subj "/CN=${HOST}" -sha256 -new -key server-key.pem -out server.csr
 
 	@echo "Sign the public key with our CA:"
-	@echo subjectAltName = DNS:$HOST,IP:10.10.10.20,IP:127.0.0.1 >> extfile.cnf
+	@echo subjectAltName = DNS:${HOST},IP:10.10.10.20,IP:127.0.0.1 >> extfile.cnf
 	@echo extendedKeyUsage = serverAuth >> extfile.cnf
 
 	@echo "Generate the signed certificate:"

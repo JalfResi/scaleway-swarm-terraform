@@ -21,3 +21,7 @@ variable "worker_instance_count" {
 variable "docker_api_ip" {
   default = "127.0.0.1"
 }
+
+variable "docker_manager_static_ip" {
+  default = "51.15.115.87"
+}
