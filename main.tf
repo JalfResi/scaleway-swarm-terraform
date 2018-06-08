@@ -16,8 +16,16 @@ data "scaleway_image" "xenial" {
   name         = "Ubuntu Xenial"
 }
 
-data "template_file" "docker_conf" {
-  template = "${file("conf/docker.tpl")}"
+data "template_file" "docker_manager_conf" {
+  template = "${file("conf/docker_manager.tpl")}"
+
+  vars {
+    ip = "${var.docker_api_ip}"
+  }
+}
+
+data "template_file" "docker_worker_conf" {
+  template = "${file("conf/docker_worker.tpl")}"
 
   vars {
     ip = "${var.docker_api_ip}"

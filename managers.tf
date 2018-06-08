@@ -1,5 +1,6 @@
 resource "scaleway_ip" "swarm_manager_ip" {
   count = 1
+
 }
 
 resource "scaleway_server" "swarm_manager" {
@@ -24,7 +25,22 @@ resource "scaleway_server" "swarm_manager" {
   }
 
   provisioner "file" {
-    content     = "${data.template_file.docker_conf.rendered}"
+    content     = "${data.local_file.ca-pem.content}"
+    destination = "/etc/ssl/certs/ca.pem"
+  }
+
+  provisioner "file" {
+    content     = "${data.local_file.server-cert-pem.content}"
+    destination = "/etc/ssl/private/server-cert.pem"
+  }
+
+  provisioner "file" {
+    content     = "${data.local_file.server-key-pem.content}"
+    destination = "/etc/ssl/private/server-key.pem"
+  }
+
+  provisioner "file" {
+    content     = "${data.template_file.docker_manager_conf.rendered}"
     destination = "/etc/systemd/system/docker.service.d/docker.conf"
   }
 
